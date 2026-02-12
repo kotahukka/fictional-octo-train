@@ -1,5 +1,4 @@
 import json
-from unittest import result
 
 BLOCKED_IPS = {"198.51.100.22", "203.0.113.25"}
 ALLOWED_COUNTRIES = {"US", "CA", "UK"}
