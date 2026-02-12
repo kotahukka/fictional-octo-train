@@ -1,5 +1,14 @@
 [
   {
+    "user": "flag-test-human-no-mfa",
+    "account_type": "human",
+    "enabled": true,
+    "mfa_enrolled": false,
+    "ip": "192.23.113.99",
+    "country": "US",
+    "failed_attempts_last_hour": 0
+  },
+  {
     "user": "frank556",
     "account_type": "human",
     "enabled": false,
