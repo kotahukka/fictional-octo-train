@@ -1,0 +1,29 @@
+# Pre-commit configuration for fictional-octo-train
+# Keep this repo beginner-friendly while enforcing clean, consistent commits.
+#
+# Update hook versions with:
+#   pre-commit autoupdate
+#
+# Install hooks with:
+#   pre-commit install
+
+repos:
+  # Basic hygiene + safety checks
+  - repo: https://github.com/pre-commit/pre-commit-hooks
+    rev: v6.0.0
+    hooks:
+      - id: trailing-whitespace
+      - id: end-of-file-fixer
+      - id: check-yaml
+      - id: check-ast
+      - id: check-merge-conflict
+      - id: check-added-large-files
+        args: ["--maxkb=1024"]
+
+  # Python lint + format (fast, beginner-friendly, and consistent)
+  - repo: https://github.com/astral-sh/ruff-pre-commit
+    rev: v0.15.0
+    hooks:
+      - id: ruff-check
+        args: ["--fix"]
+      - id: ruff-format

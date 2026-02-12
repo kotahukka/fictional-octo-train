@@ -1,0 +1,42 @@
+name: CI
+
+on:
+  pull_request:
+  push:
+    branches: ["main"]
+
+jobs:
+  precommit:
+    name: pre-commit (perl=${{ matrix.perl }})
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        perl: [false, true]
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Install pre-commit
+        run: |
+          python -m pip install -U pip pre-commit
+
+      - name: Install Perl tooling (only when enabled)
+        if: matrix.perl == true
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y perltidy libperl-critic-perl
+
+      - name: Run pre-commit (all files)
+        env:
+          # Keep strict mode off by default in CI.
+          # Turn it on later if you want Ansible/Jinja strict enforced in CI.
+          REPOTOOLS_STRICT: "0"
+        run: |
+          pre-commit run --all-files --show-diff-on-failure
