@@ -8,6 +8,27 @@ Account Takeover (ATO) risk mitigation.
 
 ---
 
+## [v0.2.0] - Policy Hardening and Decision Precedence
+
+### Fixed
+
+- Corrected blocked IP enforcement logic and blocklist entry to prevent unintended blanket blocking.
+- Fixed an MFA reason scoping/indentation bug where `human_without_mfa` could be applied to service accounts.
+- Standardized MFA reason codes so they are mutually exclusive by account type.
+
+### Changed
+
+- Refined MFA enforcement logic:
+  - Service accounts without MFA now result in `BLOCK`
+  - Human users without MFA result in `FLAG`
+- Enforced decision precedence (BLOCK > FLAG > ALLOW) using an `escalate()` helper to prevent accidental decision overrides.
+- Refactored FLAG-producing rules (failed attempts, human MFA absence) to use decision escalation instead of string comparisons.
+
+### Security Rationale
+
+Service accounts represent higher privilege and automation surfaces. Strengthening MFA enforcement and decision
+precedence reduces ATO blast radius and prevents policy rule interactions from producing inconsistent outcomes.
+
 ## [v0.1.0] - Initial Implementation
 
 ### Added
