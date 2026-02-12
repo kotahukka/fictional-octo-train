@@ -1,6 +1,6 @@
 import json
 
-BLOCKED_IPS = {"198.51.100.22", "203.0.113.25"}
+BLOCKED_IPS = {"198.51.100.22", "203.0.113.250"}
 ALLOWED_COUNTRIES = {"US", "CA", "UK"}
 
 
@@ -24,7 +24,7 @@ def evaluate_login(event: dict) -> dict:
         reasons.append("restricted_country")
 
     # Rule 4: Blocked IP
-    if event["ip"] not in BLOCKED_IPS:
+    if event["ip"] in BLOCKED_IPS:
         decision = "BLOCK"
         reasons.append("blocked_ip")
 
@@ -38,7 +38,7 @@ def evaluate_login(event: dict) -> dict:
     if not event["mfa_enrolled"]:
         if event["account_type"] == "service":
             decision = "BLOCK"
-            reasons.append("service_account_mfa_not_enrolled")
+            reasons.append("service_account_mfa_without_mfa")
         else:
             if decision != "BLOCK":
                 decision = "FLAG"
