@@ -36,9 +36,14 @@ def evaluate_login(event: dict) -> dict:
 
     # Rule6: MFA not enrolled
     if not event["mfa_enrolled"]:
-        if decision != "BLOCK":
-            decision = "FLAG"
-        reasons.append("mfa_not_enrolled")
+        if event["account_type"] == "service":
+            decision = "BLOCK"
+            reasons.append("service_account_mfa_not_enrolled")
+        else:
+            if decision != "BLOCK":
+                decision = "FLAG"
+        reasons.append("human_without_mfa")
+
     return {"user": event["user"], "decision": decision, "reasons": reasons}
 
 
