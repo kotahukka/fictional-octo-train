@@ -1,0 +1,18 @@
+[tool.ruff]
+# Same as Black.
+line-length = 88
+indent-width = 4
+
+[tool.ruff.lint]
+# Choose which rules to trigger.
+# E = Error, F = Pyflakes, I = Isort (imports)
+select = ["E", "F", "I"]
+# Tell Ruff to ignore specific rules you don't like
+ignore = [
+    "E501", # Ignore line length violations (sometimes long strings are okay)
+    "F401", # Ignore unused imports (if you're still debugging)
+]
+
+[tool.ruff.format]
+quote-style = "double"
+indent-style = "space"
