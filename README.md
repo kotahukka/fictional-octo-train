@@ -1,4 +1,3 @@
-#!/usr/bin/env python3
 """
 Version bump utility for fictional-octo-train.
 
