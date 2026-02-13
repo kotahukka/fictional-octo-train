@@ -3,12 +3,12 @@
 Version bump utility for fictional-octo-train.
 
 Usage:
-python scripts/bump_version.py patch
-python scripts/bump_version.py minor
-python scripts/bump_version.py major
+    python scripts/bump_version.py patch
+    python scripts/bump_version.py minor
+    python scripts/bump_version.py major
 """
 
-from **future** import annotations
+from __future__ import annotations
 
 import re
 import sys
@@ -17,25 +17,30 @@ from pathlib import Path
 VERSION_FILE = Path(".VERSION")
 VERSION_PATTERN = re.compile(r"^v(\d+)\.(\d+)\.(\d+)$")
 
+
 def parse_version(version: str) -> tuple[int, int, int]:
-match = VERSION_PATTERN.match(version.strip())
-if not match:
-raise ValueError(f"Invalid version format: {version!r} (expected vMAJOR.MINOR.PATCH)")
-return tuple(int(part) for part in match.groups())
+    match = VERSION_PATTERN.match(version.strip())
+    if not match:
+        raise ValueError(
+            f"Invalid version format: {version!r} (expected vMAJOR.MINOR.PATCH)"
+        )
+    return tuple(int(part) for part in match.groups())
+
 
 def bump_version(major: int, minor: int, patch: int, kind: str) -> tuple[int, int, int]:
-if kind == "major":
-return major + 1, 0, 0
-if kind == "minor":
-return major, minor + 1, 0
-if kind == "patch":
-return major, minor, patch + 1
-raise ValueError("Usage: bump_version.py {major|minor|patch}")
+    if kind == "major":
+        return major + 1, 0, 0
+    if kind == "minor":
+        return major, minor + 1, 0
+    if kind == "patch":
+        return major, minor, patch + 1
+    raise ValueError("Usage: bump_version.py {major|minor|patch}")
+
 
 def main() -> int:
-if len(sys.argv) != 2:
-print("Usage: bump_version.py {major|minor|patch}", file=sys.stderr)
-return 2
+    if len(sys.argv) != 2:
+        print("Usage: bump_version.py {major|minor|patch}", file=sys.stderr)
+        return 2
 
     kind = sys.argv[1]
 
@@ -58,5 +63,6 @@ return 2
     print(f"Bumped .VERSION: {current_raw} -> {new_version}")
     return 0
 
-if **name** == "**main**":
-raise SystemExit(main())
+
+if __name__ == "__main__":
+    raise SystemExit(main())
