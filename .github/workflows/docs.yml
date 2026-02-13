@@ -1,0 +1,17 @@
+name: Docs
+
+on:
+  pull_request:
+  push:
+    branches: ["main", "master"]
+
+jobs:
+  markdown:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Markdown lint
+        uses: DavidAnson/markdownlint-cli2-action@v17
+        with:
+          globs: |
+            **/*.md
