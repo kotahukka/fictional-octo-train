@@ -156,5 +156,22 @@ This lab is designed for:
 - Engineers preparing for senior-level security interviews
 - Professionals implementing authentication and abuse controls
 
+## Releases
+
+Releases are tag-driven.
+
+1. Bump the version:
+   - `./scripts/bump_version.sh patch` (or `minor` / `major`)
+2. Commit:
+   - `git commit -am "chore(release): bump version to $(cat VERSION)"`
+3. Tag + push:
+   - `git tag "$(cat VERSION)"`
+   - `git push --follow-tags`
+
+CI will:
+
+- update `CHANGELOG.md` on tag push
+- create a GitHub Release for the tag
+
 This is not a beginner Python tutorial. It is a security engineering
 practice environment.
