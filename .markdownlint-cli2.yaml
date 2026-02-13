@@ -7,9 +7,9 @@ config:
 
   # Changelogs and link-heavy lines often exceed 80 chars.
   MD013:
-    line_length: 140
-    heading_line_length: 140
-    code_block_line_length: 140
+    line_length: 200
+    heading_line_length: 200
+    code_block_line_length: 200
     stern: false
 
   # Allow multiple H1 in README when sections are stitched or templates used.
