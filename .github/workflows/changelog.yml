@@ -14,13 +14,24 @@ jobs:
       - uses: actions/checkout@v4
         with:
           fetch-depth: 0
+          ref: main
 
       - name: Generate changelog
         uses: TriPSs/conventional-changelog-action@v6
         with:
           github-token: ${{ secrets.GITHUB_TOKEN }}
           output-file: "CHANGELOG.md"
+          release-count: "0"
           skip-on-empty: "false"
+
+          # Critical: avoid detached-head pull and avoid touching versions/tags/commits
+          git-branch: "main"
+          skip-git-pull: "true"
+          skip-version-file: "true"
+          skip-bump: "true"
+          skip-tag: "true"
+          skip-commit: "true"
+          git-push: "false"
 
       - name: Commit changelog
         run: |
