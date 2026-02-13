@@ -1,0 +1,27 @@
+# .markdownlint-cli2.yaml
+# Keep docs linting strict, but allow common OSS README patterns.
+
+config:
+  # READMEs commonly use inline HTML for badge rows and layout.
+  MD033: false
+
+  # Changelogs and link-heavy lines often exceed 80 chars.
+  MD013:
+    line_length: 140
+    heading_line_length: 140
+    code_block_line_length: 140
+    stern: false
+
+  # Allow multiple H1 in README when sections are stitched or templates used.
+  # (Alternatively: fix README to have only one H1.)
+  MD025: false
+
+  # Be tolerant of list marker spacing; mdformat tends to standardize anyway.
+  MD030: false
+
+globs:
+  - "**/*.md"
+
+ignores:
+  - ".venv/**"
+  - "node_modules/**"
