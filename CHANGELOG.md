@@ -1,4 +1,13 @@
-# [](https://github.com/kotahukka/fictional-octo-train/compare/v0.2.6...v) (2026-02-13)
+# [](https://github.com/kotahukka/fictional-octo-train/compare/v0.4.0...v) (2026-02-13)
+
+
+
+# [0.4.0](https://github.com/kotahukka/fictional-octo-train/compare/v0.2.6...v0.4.0) (2026-02-13)
+
+
+### Features
+
+* **auth-policy:** introduce rule registry and malformed-event blocking (v0.3.0) ([0d5cb10](https://github.com/kotahukka/fictional-octo-train/commit/0d5cb1013235b5aae4345960b6aa5d54b0c72106))
 
 
 
