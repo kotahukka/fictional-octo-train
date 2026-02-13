@@ -1,0 +1,54 @@
+# Managed by Ansible (repo version {{ repo_version }})
+name: Repo Policy
+
+on:
+  pull_request:
+  push:
+    branches: ["main", "master"]
+
+jobs:
+  policy:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Basic repo invariants
+        run: |
+          set -euo pipefail
+
+          # If roles exist, enforce standard skeleton files.
+          if [ -d "roles" ]; then
+            while IFS= read -r -d '' role; do
+              echo "Checking role: $role"
+              test -f "$role/tasks/main.yml" || { echo "Missing $role/tasks/main.yml"; exit 1; }
+              test -f "$role/defaults/main.yml" || { echo "Missing $role/defaults/main.yml"; exit 1; }
+              # handlers and vars are optional, but you can enforce if you want:
+              # test -f "$role/handlers/main.yml" || { echo "Missing $role/handlers/main.yml"; exit 1; }
+            done < <(find roles -mindepth 1 -maxdepth 1 -type d -print0)
+          fi
+
+          # Strong suggestion: keep docs for humans
+          if [ ! -f "README.md" ]; then
+            echo "Missing README.md (recommended)."
+            exit 1
+          fi
+
+          echo "Repo policy checks passed."
+        shell: bash
+
+      - name: Enforce file modes expressed as strings
+        run: |
+          set -euo pipefail
+          # YAML octal footgun: mode: 0644 is parsed as decimal sometimes depending on tooling.
+          # Enforce mode: "0644"
+          offenders=$(grep -RIn --exclude-dir=.git --exclude-dir=.github \
+            -E '^\s*mode:\s*[0-9]{3,4}\s*$' \
+            roles playbooks 2>/dev/null || true)
+
+          if [ -n "$offenders" ]; then
+            echo "Found unquoted file modes. Use mode: \"0644\""
+            echo "$offenders"
+            exit 1
+          fi
+          echo "Mode quoting check passed."
+        shell: bash
