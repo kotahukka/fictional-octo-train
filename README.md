@@ -1,3 +1,7 @@
+[![CI](https://github.com/kotahukka/fictional-octo-train/actions/workflows/ci.yml/badge.svg)](
+https://github.com/kotahukka/fictional-octo-train/actions/workflows/ci.yml) [![Changelog](https://github.com/kotahukka/fictional-octo-train/actions/workflows/changelog.yml/badge.svg)](
+https://github.com/kotahukka/fictional-octo-train/actions/workflows/changelog.yml)
+
 # Python Security Engineering Lab
 
 This repository is a structured Python training environment focused on
